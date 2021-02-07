@@ -24,21 +24,21 @@
   }
 
   function setButtonStateInitial() {
-    start.disabled = false;
-    stop.disabled = true;
-    reset.disabled = true;
+    start.classList.remove('inactive');
+    stop.classList.add('inactive');
+    reset.classList.add('inactive');
   }
 
   function setButtonStateRunning() {
-    start.disabled = true;
-    stop.disabled = false;
-    reset.disabled = true;
+    start.classList.add('inactive');
+    stop.classList.remove('inactive');
+    reset.classList.add('inactive');
   }
 
   function setButtonStateStopped() {
-    start.disabled = false;
-    stop.disabled = true;
-    reset.disabled = false;
+    start.classList.remove('inactive');
+    stop.classList.add('inactive');
+    reset.classList.remove('inactive');
   }
 
   // ページ読み込み時の処理
@@ -46,20 +46,29 @@
 
   // スタートボタン押下時の処理
   start.addEventListener('click', () => {
+    if (start.classList.contains('inactive') === true) {
+      return;
+    }
     setButtonStateRunning();
     startTime = Date.now();
     countUp();
   });
-
+  
   // ストップボタン押下時の処理
   stop.addEventListener('click', () => {
+    if (stop.classList.contains('inactive') === true) {
+      return;
+    }
     setButtonStateStopped();
     clearTimeout(timeoutId);
     elapsedTime += Date.now() - startTime;
   });
-
+  
   // リセットボタン押下時の処理
   reset.addEventListener('click', () => {
+    if (reset.classList.contains('inactive') === true) {
+      return;
+    }
     setButtonStateInitial();
     timer.textContent = '00:00.000';
     elapsedTime = 0;
