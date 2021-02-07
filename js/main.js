@@ -32,4 +32,9 @@
   stop.addEventListener('click', () => {
     clearTimeout(timeoutId);
   });
+
+  // リセットボタン押下時の処理
+  reset.addEventListener('click', () => {
+    timer.textContent = '00:00.000';
+  });
 }
