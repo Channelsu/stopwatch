@@ -5,7 +5,9 @@
   const start = document.getElementById('start');
   const stop = document.getElementById('stop');
   const reset = document.getElementById('reset');
+
   let startTime;
+  let timeoutId;
 
   function countUp() {
     // console.log(Date.now() - startTime);
@@ -15,13 +17,19 @@
     const ms = String(d.getMilliseconds()).padStart(3, '0');
     timer.textContent = `${m}:${s}.${ms}`;
 
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       countUp();
     }, 10);
   }
 
+  // スタートボタン押下時の処理
   start.addEventListener('click', () => {
     startTime = Date.now();
     countUp();
+  });
+
+  // ストップボタン押下時の処理
+  stop.addEventListener('click', () => {
+    clearTimeout(timeoutId);
   });
 }
