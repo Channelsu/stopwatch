@@ -23,20 +23,44 @@
     }, 10);
   }
 
+  function setButtonStateInitial() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = true;
+  }
+
+  function setButtonStateRunning() {
+    start.disabled = true;
+    stop.disabled = false;
+    reset.disabled = true;
+  }
+
+  function setButtonStateStopped() {
+    start.disabled = false;
+    stop.disabled = true;
+    reset.disabled = false;
+  }
+
+  // ページ読み込み時の処理
+  setButtonStateInitial();
+
   // スタートボタン押下時の処理
   start.addEventListener('click', () => {
+    setButtonStateRunning();
     startTime = Date.now();
     countUp();
   });
 
   // ストップボタン押下時の処理
   stop.addEventListener('click', () => {
+    setButtonStateStopped();
     clearTimeout(timeoutId);
     elapsedTime += Date.now() - startTime;
   });
 
   // リセットボタン押下時の処理
   reset.addEventListener('click', () => {
+    setButtonStateInitial();
     timer.textContent = '00:00.000';
     elapsedTime = 0;
   });
